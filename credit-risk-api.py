@@ -60,7 +60,7 @@ async def predict_loan(loan_data: LoanRequest):
                 )
         
         # 4. Realizar predicción
-        probability = model.predict_proba(input_data)[0][1]
+        probability = model.predict(input_data)[0][1]
         prediction = "Alto Riesgo" if probability > 0.5 else "Bajo Riesgo"
         
         # 5. Preparar respuesta
