@@ -60,7 +60,14 @@ async def predict_loan(loan_data: LoanRequest):
                 )
         
         # 4. Realizar predicción
-        probability = model.predict(input_data)[0][1]
+        output = model.predict(input_data)
+        
+        # Verificar la forma de la salida
+        if output.shape[1] == 1:  # Clasificación binaria
+            probability = output[0][0]
+        else:  # Clasificación multiclase
+            probability = output[0][1]  # Cambiar el índice según la clase deseada
+        
         prediction = "Alto Riesgo" if probability > 0.5 else "Bajo Riesgo"
         
         # 5. Preparar respuesta
@@ -79,6 +86,8 @@ async def predict_loan(loan_data: LoanRequest):
             }
         }
         
+    except IndexError as e:
+        raise HTTPException(status_code=500, detail=f"Error en la predicción: {str(e)}")
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
