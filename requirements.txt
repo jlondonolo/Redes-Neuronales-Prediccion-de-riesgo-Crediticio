@@ -1,10 +1,11 @@
 fastapi==0.88.0
 uvicorn==0.20.0
 pydantic==1.10.7
-numpy>=1.23.2
-pandas>=2.2.3
-scikit-learn==1.2.2
+numpy==1.21.6  # Versión más estable compatible con las demás dependencias
+pandas==1.3.5  # Mantenemos esta versión que sabemos funciona con tu código
+scikit-learn==1.0.2 --no-binary :all:  # Forzamos la compilación desde fuente
 joblib==1.2.0
 tensorflow-cpu==2.8.0
 h5py==3.1.0
 typing-extensions==4.5.0
+python-multipart==0.0.5  # Para manejar form-data si lo necesitas
