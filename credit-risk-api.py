@@ -1,5 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
+from fastapi.middleware.cors import CORSMiddleware
 import pandas as pd
 import numpy as np
 import joblib
@@ -9,6 +10,15 @@ app = FastAPI(
     title="API de Predicción de Riesgo Crediticio",
     description="API para evaluar el riesgo crediticio de préstamos",
     version="1.0.0"
+)
+
+# Configuración CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],  # Dominios permitidos
+    allow_credentials=True,
+    allow_methods=["*"],  # Métodos HTTP permitidos
+    allow_headers=["*"],  # Headers permitidos
 )
 
 # Cargar el modelo y los preprocessadores
