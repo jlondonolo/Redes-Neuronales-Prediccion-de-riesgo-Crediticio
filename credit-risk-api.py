@@ -15,7 +15,7 @@ app = FastAPI(
 # Configuración CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # Dominios permitidos
+    allow_origins=["http://localhost:3000","https://crediapp.onrender.com/"],  # Dominios permitidos
     allow_credentials=True,
     allow_methods=["*"],  # Métodos HTTP permitidos
     allow_headers=["*"],  # Headers permitidos
