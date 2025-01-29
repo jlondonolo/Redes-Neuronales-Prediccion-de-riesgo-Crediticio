@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 import pandas as pd
 import numpy as np
 import joblib
@@ -15,11 +16,16 @@ app = FastAPI(
 # Configuración CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000","https://crediapp.onrender.com/"],  # Dominios permitidos
+    allow_origins=["http://localhost:3000","https://crediapp.onrender.com"],  # Dominios permitidos
     allow_credentials=True,
     allow_methods=["*"],  # Métodos HTTP permitidos
     allow_headers=["*"],  # Headers permitidos
 )
+
+
+@app.options("/{full_path:path}")
+async def preflight_handler(full_path: str, request: Request):
+    return JSONResponse(content=None, status_code=200)
 
 # Cargar el modelo y los preprocessadores
 print("Cargando modelo y preprocessadores...")
